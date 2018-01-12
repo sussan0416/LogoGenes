@@ -3,6 +3,7 @@ class Population {
   Logo[] population;
   ArrayList<Logo> matingPool;
   int generations;
+  int wh = 300;
   
   Population(float m, int num) {
     mutationRate = m;
@@ -10,7 +11,7 @@ class Population {
     matingPool = new ArrayList<Logo>();
     generations = 0;
     for (int i = 0; i < population.length; i++) {
-      population[i] = new Logo(new DNA(), 80 + i * 105, 60);
+      population[i] = new Logo(new DNA(10), 10 + wh / 2 + i * (wh + 10), 10 + wh / 2);
     }
   }
   
@@ -45,10 +46,10 @@ class Population {
       int m = int(random(matingPool.size()));
       int d = int(random(matingPool.size()));
       Logo mom = matingPool.get(m);
-      Logo dad = mationPool.get(d);
+      Logo dad = matingPool.get(d);
       DNA momGenes = mom.getDNA();
       DNA dadGenes = dad.getDNA();
-      DNA child = momgGenes.crossover(dadGenes);
+      DNA child = momGenes.crossover(dadGenes);
       child.mutate(mutationRate);
       population[i] = new Logo(child, 80 + i * 105, 60);
     }

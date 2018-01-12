@@ -21,8 +21,9 @@ class DNA {
       } else {
         child[i] = partner.genes[i];
       }
-      DNA newGenes = new DNA(child);
-      return newGenes;
+    }
+    DNA newGenes = new DNA(child);
+    return newGenes;
   }
   
   void mutate(float m) {

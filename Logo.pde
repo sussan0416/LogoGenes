@@ -2,11 +2,11 @@ class Logo {
   DNA dna;
   float fitness;
   float x, y;
-  int wh = 150;
+  int wh = 300;
   boolean isRollover;
   Rectangle r;
   
-  Logo(DNA dna_, float x_, float y) {
+  Logo(DNA dna_, float x_, float y_) {
     dna = dna_;
     x = x_;
     y = y_;
@@ -35,7 +35,7 @@ class Logo {
     } else {
       fill(0.25);
     }
-    text(int(fitness), x, y + 100);
+    text(int(fitness), x, y + wh / 2 + 20);
   }
   
   float getFitness() {
@@ -49,7 +49,7 @@ class Logo {
   void rollover(int mx, int my) {
     if (r.contains(mx, my)) {
       isRollover = true;
-      fitness + 0.25;
+      fitness += 0.25;
     } else {
       isRollover = false;
     }

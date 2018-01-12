@@ -12,6 +12,6 @@ class Rectangle {
   }
   
   boolean contains(int px, int py) {
-    return (px > x && px < x + width  && py > y && py < y + height);
+    return (px > x && px < x + w  && py > y && py < y + h);
   }
 }
