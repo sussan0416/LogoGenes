@@ -15,6 +15,8 @@ class Logo {
   }
   
   void display() {
+    
+    
     pushMatrix();
     translate(x, y);
     

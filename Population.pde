@@ -51,7 +51,7 @@ class Population {
       DNA dadGenes = dad.getDNA();
       DNA child = momGenes.crossover(dadGenes);
       child.mutate(mutationRate);
-      population[i] = new Logo(child, 80 + i * 105, 60);
+      population[i] = new Logo(child, 10 + wh / 2 + i * (wh + 10), 10 + wh / 2);
     }
     generations++;
   }
