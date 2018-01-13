@@ -3,7 +3,7 @@ class Population {
   Logo[] population;
   ArrayList<Logo> matingPool;
   int generations;
-  int wh = 300;
+  int wh = 250;
   
   Population(float m, int num) {
     mutationRate = m;
@@ -11,7 +11,7 @@ class Population {
     matingPool = new ArrayList<Logo>();
     generations = 0;
     for (int i = 0; i < population.length; i++) {
-      population[i] = new Logo(new DNA(10), 10 + wh / 2 + i * (wh + 10), 10 + wh / 2);
+      population[i] = new Logo(new DNA(16), 10 + wh / 2 + i * (wh + 10), 10 + wh / 2);
     }
   }
   
