@@ -19,19 +19,20 @@ class Logo {
   }
   
   void display() {
-    int safeArea = wh / 2 - 10;
+    int sageMargin = 10;
+    int safeArea = wh / 2 - sageMargin;
     int maxRectSize = 30;
-    float textX = map(dna.genes[0], 0, 1, -safeArea, safeArea);
-    float textY = map(dna.genes[1], 0, 1, -safeArea, safeArea);
+    float textX = map(dna.genes[0], 0, 1, sageMargin, safeArea);
+    float textY = map(dna.genes[1], 0, 1, sageMargin, safeArea);
     float textSize = map(dna.genes[2], 0, 1, 5, 40);
-    float rectX = map(dna.genes[3], 0, 1, -safeArea, safeArea);
-    float rectY = map(dna.genes[4], 0, 1, -safeArea, safeArea);
+    float rectX = map(dna.genes[3], 0, 1, sageMargin, safeArea);
+    float rectY = map(dna.genes[4], 0, 1, sageMargin, safeArea);
     float rectSize = map(dna.genes[5], 0, 1, 5, maxRectSize);
-    float rectX2 = map(dna.genes[6], 0, 1, -safeArea, safeArea);
-    float rectY2 = map(dna.genes[7], 0, 1, -safeArea, safeArea);
+    float rectX2 = map(dna.genes[6], 0, 1, sageMargin, safeArea);
+    float rectY2 = map(dna.genes[7], 0, 1, sageMargin, safeArea);
     float rectSize2 = map(dna.genes[8], 0, 1, 5, maxRectSize);
-    float rectX3 = map(dna.genes[9], 0, 1, -safeArea, safeArea);
-    float rectY3 = map(dna.genes[10], 0, 1, -safeArea, safeArea);
+    float rectX3 = map(dna.genes[9], 0, 1, sageMargin, safeArea);
+    float rectY3 = map(dna.genes[10], 0, 1, sageMargin, safeArea);
     float rectSize3 = map(dna.genes[11], 0, 1, 5, maxRectSize);
     float rectHue = map(dna.genes[12], 0, 1, 0, 360);
     float rectHue2 = map(dna.genes[13], 0, 1, 0, 360);
@@ -40,13 +41,17 @@ class Logo {
     pushMatrix();
     translate(x, y);
     
+    PGraphics pg = createGraphics(wh, wh);
+    
     float dist21 = dist(rectX, rectY, rectX2, rectY2);
     float dist31 = dist(rectX, rectY, rectX3, rectY3);
     float dist32 = dist(rectX2, rectY2, rectX3, rectY3);
     
     float dist = 100;
     
-    colorMode(RGB, 255);
+    pg.beginDraw();
+    pg.colorMode(RGB);
+    pg.background(255);
     
     float max = dist32;
     if (dist21 >= dist32) {
@@ -56,45 +61,49 @@ class Logo {
       max = dist31;
     }
     if (max <= dist) {
-      noStroke();
-      fill(156, 156, 157, 255 - map(max, 0, dist, 0, 255));
-      triangle(rectX, rectY, rectX2, rectY2, rectX3, rectY3);
+      pg.noStroke();
+      pg.fill(230, 255 - map(max, 0, dist, 0, 255));
+      pg.triangle(rectX, rectY, rectX2, rectY2, rectX3, rectY3);
     }
     
-    strokeWeight(0.5);
+    pg.strokeWeight(0.5);
     if (dist21 < dist) {
       int stroke = int(map(dist21, 0, dist, 100, 255));
-      stroke(stroke);
-      line(rectX, rectY, rectX2, rectY2);
+      pg.stroke(stroke);
+      pg.line(rectX, rectY, rectX2, rectY2);
     }
     if (dist31 < dist) {
       int stroke = int(map(dist31, 0, dist, 100, 255));
-      stroke(stroke);
-      line(rectX, rectY, rectX3, rectY3);
+      pg.stroke(stroke);
+      pg.line(rectX, rectY, rectX3, rectY3);
     }
     if (dist32 < dist) {
       int stroke = int(map(dist32, 0, dist, 100, 255));
-      stroke(stroke);
-      line(rectX2, rectY2, rectX3, rectY3);
+      pg.stroke(stroke);
+      pg.line(rectX2, rectY2, rectX3, rectY3);
     }
     
-    colorMode(HSB, 360, 100, 100);
-    noStroke();
-    rectMode(CENTER);
-    fill(rectHue, 100, 80);
-    rect(rectX, rectY, rectSize, rectSize);
-    fill(rectHue2, 100, 80);
-    rect(rectX2, rectY2, rectSize2, rectSize2);
-    fill(rectHue3, 100, 80);
-    rect(rectX3, rectY3, rectSize3, rectSize3);
+    pg.colorMode(HSB, 360, 100, 100);
+    pg.noStroke();
+    pg.rectMode(CENTER);
+    pg.fill(rectHue, 100, 80);
+    pg.rect(rectX, rectY, rectSize, rectSize);
+    pg.fill(rectHue2, 100, 80);
+    pg.rect(rectX2, rectY2, rectSize2, rectSize2);
+    pg.fill(rectHue3, 100, 80);
+    pg.rect(rectX3, rectY3, rectSize3, rectSize3);
     
-    colorMode(RGB, 1.0);
+    pg.colorMode(RGB, 1.0);
     
-    fill(0);
-    textAlign(CENTER);
-    textFont(helvetica);
-    textSize(textSize);
-    text("Hello World.", textX, textY);
+    pg.fill(0);
+    pg.textAlign(CENTER);
+    pg.textFont(helvetica);
+    pg.textSize(textSize);
+    pg.text("Hello World.", textX, textY);
+    
+    pg.endDraw();
+    
+    image(pg, -wh/2, -wh/2);
     
     rectMode(CENTER);
     
